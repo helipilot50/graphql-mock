@@ -1,0 +1,27 @@
+{
+  "name": "graphql-mock",
+  "version": "1.0.0",
+  "description": "Mock server for GraphQL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/helipilot50/graphql-mock.git"
+  },
+  "author": "Peter Milne",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/helipilot50/graphql-mock/issues"
+  },
+  "homepage": "https://github.com/helipilot50/graphql-mock#readme",
+  "bin": {
+    "graphql-mock": "./bin/index.js"
+  },
+  "dependencies": {
+    "apollo-server": "^2.18.0",
+    "yards": "^0.1.4",
+    "yargs": "^16.0.3"
+  }
+}
