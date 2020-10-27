@@ -1,34 +1,26 @@
 #!/usr/bin/env node
-const fs = require('fs');
-const path = require('path');
-const yargs = require("yargs");
-const { ApolloServer, gql, PubSub } = require('apollo-server');
-const pubsub = new PubSub();
+const yargs = require('yargs');
+const { runAndWatch } = require('./util/runner');
 
-const options = yargs
- .usage("Usage: -f <Gql schema file>")
- .option("f", { alias: "file", describe: "GraphQL schema file", type: "string", demandOption: true })
- .argv;
+yargs
+  // .version()
+  // .help(true)
+  // .wrap(yargs.terminalWidth)
+  .command('$0', 'start an Apollo Server Mock',
+    (yargs) => {
+      yargs
+        .positional('schema', {
+          describe: 'GraphQL Schema Definition',
+        })
+    }, (argv) => {
+      if (argv.verbose)
+        console.log(`Mock Apollo Server using: ${argv.schema}`)
+      runAndWatch(argv.schema);
+    })
+  .option('verbose', {
+    alias: 'v',
+    type: 'boolean',
+    description: 'Run with verbose logging'
+  })
+  .argv;
 
-const typeDefsString = fs.readFileSync(options.file, 'utf8');
-
-const typeDefs = gql`${typeDefsString}`;
-
-const server = new ApolloServer({
-  typeDefs,
-  mocks: true,
-  playground: true,
-  subscriptions: {
-    onConnect: (connectionParams, webSocket) => {
-      console.log('Connection:')     ;
-    },
-    onDisconnect: (webSocket, context) => {
-        console.log('disconnection')  ;
-    },
-  },
-});
-
-server.listen().then(({ url, subscriptionsUrl }) => {
-  console.log(`🚀 Server ready at ${url}`);
-  console.log(`🚀 Subscriptions ready at ${subscriptionsUrl}`);
-});

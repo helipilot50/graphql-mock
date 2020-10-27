@@ -2,10 +2,6 @@
   "name": "graphql-mock",
   "version": "1.0.0",
   "description": "Mock server for GraphQL",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/helipilot50/graphql-mock.git"
@@ -21,7 +17,19 @@
   },
   "dependencies": {
     "apollo-server": "^2.18.0",
+    "chalk": "^4.1.0",
+    "chokidar": "^3.4.2",
     "yards": "^0.1.4",
     "yargs": "^16.0.3"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "files": [
+    "/dist"
+  ],
+  "main": "dist/index.js",
+  "publishConfig": {
+    "access": "public"
   }
 }
